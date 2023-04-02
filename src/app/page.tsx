@@ -36,6 +36,9 @@ export default function Home() {
           )}
         </ul>
       </section>
+      <section>
+        <h1 className='font-bold text-2xl'> You may like </h1>
+      </section>
     </>
   );
 }
