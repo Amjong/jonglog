@@ -9,7 +9,7 @@ type Props = {
   };
 };
 
-export default function PostsPage(props: Props) {
+export default function PostsDetailPage(props: Props) {
   const TargetPost = data.find((post) => {
     if (post.path === props.params.slug) {
       return post;
