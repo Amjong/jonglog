@@ -6,6 +6,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import React from 'react';
 
 interface MarkdownViewProps {
   post: string;
@@ -23,8 +24,8 @@ export const MarkdownView = ({ post }: MarkdownViewProps) => {
             <SyntaxHighlighter
               language={match[1]}
               PreTag='div'
-              style={dark}
               {...props}
+              style={dark}
             >
               {String(children).replace(/\n$/, '')}
             </SyntaxHighlighter>

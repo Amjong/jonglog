@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import { fetchData } from './util/fetchdata';
 import PostCard from './component/PostCard';
 import Profile from './component/Profile';
+import MyCarousel from './component/MyCarousel';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,21 @@ export default function Home() {
       </section>
       <section>
         <h1 className='font-bold text-2xl'> You may like </h1>
+        <MyCarousel>
+          {data.map(
+            ({ title, description, date, category, path, featured }, index) => (
+              <PostCard
+                key={index}
+                featured={featured}
+                title={title}
+                description={description}
+                date={date}
+                category={category}
+                path={path}
+              />
+            )
+          )}
+        </MyCarousel>
       </section>
     </>
   );
