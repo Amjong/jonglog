@@ -1,6 +1,8 @@
 import { MarkdownView } from '@/app/component/MarkdownView';
+import { post } from '@/app/type/post';
 import { fetchData, fetchTargetPost } from '@/app/util/fetchdata';
-
+import Image from 'next/image';
+import { AiTwotoneCalendar } from 'react-icons/ai';
 const data = fetchData();
 
 type Props = {
@@ -10,16 +12,30 @@ type Props = {
 };
 
 export default function PostsDetailPage(props: Props) {
-  const TargetPost = data.find((post) => {
+  const { title, path, date, description } = data.find((post) => {
     if (post.path === props.params.slug) {
       return post;
     }
-  });
-  const TargetMd = TargetPost && fetchTargetPost(TargetPost.path);
+  }) as post;
+  const TargetMd = fetchTargetPost(path);
   return (
-    <div className='markdown-body'>
-      <div>{TargetMd && <MarkdownView post={TargetMd} />}</div>
-    </div>
+    <article>
+      <Image
+        src={`/images/posts/${path}.png`}
+        alt={title}
+        width={760}
+        height={420}
+      />
+      <section>
+        <div>
+          <AiTwotoneCalendar />
+          <p>{date.toString()}</p>
+        </div>
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <MarkdownView post={TargetMd} />
+      </section>
+    </article>
   );
 }
 
