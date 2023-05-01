@@ -15,6 +15,7 @@ interface MarkdownViewProps {
 export const MarkdownView = ({ post }: MarkdownViewProps) => {
   return (
     <ReactMarkdown
+      className='prose lg:prose-xl'
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeKatex, rehypeRaw]}
       components={{
