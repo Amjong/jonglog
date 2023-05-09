@@ -22,5 +22,21 @@ export async function GET(request: NextRequest) {
   return new Response('Success!');
 }
 export async function POST(request: Request) {
-  return new Response(`${request}`);
+  const body = await request.json();
+  return sendMail(body as mailInfo)
+    .then(() => {
+      return new Response(
+        JSON.stringify({ message: '메일을 성공적으로 보냈음' }),
+        {
+          status: 200,
+        }
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+      return new Response(
+        JSON.stringify({ message: '메일 전송에 실패했습니다' }),
+        { status: 500 }
+      );
+    });
 }
