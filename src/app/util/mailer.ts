@@ -32,7 +32,7 @@ async function initialSetting() {
 
 export async function sendMail({ from, to, subject, text }: mailInfo) {
   if (!isAlreadyCreated) {
-    initialSetting();
+    await initialSetting();
   }
   return transporter.sendMail({ from, to, subject, text });
 }

@@ -1,7 +1,7 @@
 'use client';
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Button from './Button';
-import { mailInfo, sendMail } from '../util/mailer';
+import { mailInfo } from '../util/mailer';
 
 export default function MyForm() {
   const [mail, setMail] = useState<mailInfo>({
