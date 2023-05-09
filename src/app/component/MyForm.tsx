@@ -1,20 +1,23 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import Button from './Button';
 import { mailInfo, sendMail } from '../util/mailer';
 
 export default function MyForm() {
-  //   const handleSubmit = useCallback(({ from, to, subject, text }: mailInfo) => {
-  //     const info = sendMail({ from, to, subject, text });
-  //     console.log(info);
-  //   }, []);
   const [mail, setMail] = useState<mailInfo>({
     from: '',
     to: '',
     subject: '',
     text: '',
   });
-  const handleChange = (e) => {
+  async function handleSubmit() {
+    const res = await fetch('/api/mailer', {
+      method: 'POST',
+      body: JSON.stringify(mail),
+    });
+    console.log(res);
+  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMail((mail) => ({
       ...mail,
@@ -22,12 +25,19 @@ export default function MyForm() {
     }));
   };
   return (
-    <div className='flex flex-col items-center h-96'>
+    <form className='flex flex-col items-center h-96' action='/api/mailer'>
       <h1 className='text-white'>Your Email</h1>
       <input
         className='w-4/5'
         type='text'
         name='from'
+        onChange={handleChange}
+      ></input>
+      <h1 className='text-white'>To</h1>
+      <input
+        className='w-4/5'
+        type='text'
+        name='to'
         onChange={handleChange}
       ></input>
       <h1 className='text-white'>Subject</h1>
@@ -45,6 +55,6 @@ export default function MyForm() {
         onChange={handleChange}
       ></input>
       <Button>Submit</Button>
-    </div>
+    </form>
   );
 }
